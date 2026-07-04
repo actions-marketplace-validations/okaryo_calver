@@ -1,0 +1,37 @@
+name: CalVer
+description: Calculate the next Calendar Versioning tag from existing GitHub tags.
+author: okaryo
+
+inputs:
+  prefix:
+    description: Prefix prepended to the generated version.
+    required: false
+    default: v
+  major-version:
+    description: Major version segment.
+    required: false
+    default: '1'
+  timezone:
+    description: IANA timezone name used to calculate the calendar date.
+    required: false
+    default: UTC
+  github-token:
+    description: GitHub token used to load repository tags through the GitHub API.
+    required: false
+    default: ${{ github.token }}
+
+outputs:
+  version:
+    description: Generated CalVer version.
+  date:
+    description: Resolved calendar date in yyyyMMdd format.
+  sequence:
+    description: Daily release sequence number.
+  previous-version:
+    description: Latest existing matching CalVer tag for the same prefix and major version.
+  has-previous-version:
+    description: Boolean-like string indicating whether a previous matching version exists.
+
+runs:
+  using: node24
+  main: dist/index.js
