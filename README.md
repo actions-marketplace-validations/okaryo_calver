@@ -48,7 +48,7 @@ permissions:
   contents: read
 
 steps:
-  - uses: okaryo/calver@v1
+  - uses: okaryo/calver@v1.0.0
     id: calver
     with:
       prefix: v
@@ -61,7 +61,7 @@ steps:
 ## Timezone Example
 
 ```yaml
-- uses: okaryo/calver@v1
+- uses: okaryo/calver@v1.0.0
   id: calver
   with:
     timezone: Asia/Tokyo
@@ -72,7 +72,7 @@ The `timezone` input must be a valid IANA timezone name. The Action fails clearl
 ## Empty Prefix Example
 
 ```yaml
-- uses: okaryo/calver@v1
+- uses: okaryo/calver@v1.0.0
   id: calver
   with:
     prefix: ""
