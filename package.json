@@ -9,10 +9,14 @@
   "scripts": {
     "prebuild": "node -e \"require('node:fs').rmSync('dist', { recursive: true, force: true })\"",
     "build": "tsc --noEmit && ncc build src/index.ts -o dist --source-map --license licenses.txt",
+    "check": "biome check --write .",
+    "check:format": "biome format --write .",
+    "check:ci": "biome ci .",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.5.2",
     "@types/node": "^20.19.9",
     "@vercel/ncc": "^0.38.3",
     "typescript": "^5.8.3",
