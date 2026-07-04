@@ -8,7 +8,7 @@
   "packageManager": "pnpm@11.7.0",
   "scripts": {
     "prebuild": "node -e \"require('node:fs').rmSync('dist', { recursive: true, force: true })\"",
-    "build": "tsc --noEmit && ncc build src/index.ts -o dist --source-map --license licenses.txt",
+    "build": "tsc --noEmit && ncc build src/index.ts -o dist --license licenses.txt",
     "check": "biome check --write .",
     "check:format": "biome format --write .",
     "check:ci": "biome ci .",

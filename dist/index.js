@@ -1,4 +1,4 @@
-import './sourcemap-register.cjs';import { createRequire as __WEBPACK_EXTERNAL_createRequire } from "module";
+import { createRequire as __WEBPACK_EXTERNAL_createRequire } from "module";
 /******/ var __webpack_modules__ = ({
 
 /***/ 329:
@@ -31394,5 +31394,3 @@ function getIDToken(aud) {
 /******/ var __webpack_exports__ = __nccwpck_require__(6866);
 /******/ __webpack_exports__ = await __webpack_exports__;
 /******/ 
-
-//# sourceMappingURL=index.js.map
