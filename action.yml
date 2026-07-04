@@ -1,6 +1,10 @@
-name: CalVer
+name: Next CalVer Version
 description: Calculate the next Calendar Versioning tag from existing GitHub tags.
 author: okaryo
+
+branding:
+  icon: calendar
+  color: blue
 
 inputs:
   prefix:
