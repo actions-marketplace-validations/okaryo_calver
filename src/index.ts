@@ -1,5 +1,5 @@
 import * as core from '@actions/core';
-import { calculateNextVersion } from './calver.js';
+import { calculateNextVersion, resolveDate, validateMajorVersion } from './calver.js';
 import { listRepositoryTags } from './github-tags.js';
 
 async function run(): Promise<void> {
@@ -9,12 +9,20 @@ async function run(): Promise<void> {
     const timezone = core.getInput('timezone');
     const githubToken = core.getInput('github-token', { required: true });
 
-    const tags = await listRepositoryTags(githubToken);
+    validateMajorVersion(majorVersion);
+    const now = new Date();
+    const date = resolveDate(timezone, now);
+    const tags = await listRepositoryTags(githubToken, {
+      prefix,
+      majorVersion,
+      date
+    });
     const result = calculateNextVersion({
       prefix,
       majorVersion,
       timezone,
-      tags
+      tags,
+      now
     });
 
     core.setOutput('version', result.version);

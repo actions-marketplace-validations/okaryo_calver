@@ -83,9 +83,10 @@ export function calculateNextVersion(options: CalculateNextVersionOptions): Calc
   const date = resolveDate(options.timezone, options.now);
   const matchingTags = parseMatchingTags(options.tags, options.prefix, options.majorVersion);
   const currentDate = Number(date);
-  const currentDateSequences = matchingTags.filter((tag) => tag.date === currentDate).map((tag) => tag.sequence);
+  const currentDateTags = matchingTags.filter((tag) => tag.date === currentDate);
+  const currentDateSequences = currentDateTags.map((tag) => tag.sequence);
   const sequence = currentDateSequences.length === 0 ? 0 : Math.max(...currentDateSequences) + 1;
-  const previousVersion = findLatestVersion(matchingTags)?.version ?? '';
+  const previousVersion = findLatestVersion(currentDateTags)?.version ?? '';
 
   return {
     version: `${options.prefix}${options.majorVersion}.${date}.${sequence}`,

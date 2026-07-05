@@ -87,7 +87,7 @@ describe('calculateNextVersion', () => {
     expect(result.previousVersion).toBe('');
   });
 
-  it('selects previous version across previous dates', () => {
+  it('does not select previous version from previous dates', () => {
     const result = calculateNextVersion({
       prefix: 'v',
       majorVersion: '1',
@@ -96,11 +96,11 @@ describe('calculateNextVersion', () => {
       now
     });
 
-    expect(result.previousVersion).toBe('v1.20260709.1');
-    expect(result.hasPreviousVersion).toBe('true');
+    expect(result.previousVersion).toBe('');
+    expect(result.hasPreviousVersion).toBe('false');
   });
 
-  it('sorts previous versions numerically by date and sequence', () => {
+  it('sorts previous versions numerically by sequence for the current date', () => {
     const result = calculateNextVersion({
       prefix: 'v',
       majorVersion: '1',

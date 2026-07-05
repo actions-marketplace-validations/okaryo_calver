@@ -36,8 +36,8 @@ v1.20260710.1
 | `version`              | Generated CalVer version, such as `v1.20260710.0`.                                             |
 | `date`                 | Resolved calendar date in `yyyyMMdd` format.                                                   |
 | `sequence`             | Daily release sequence number.                                                                 |
-| `previous-version`     | Latest existing matching CalVer tag for the same prefix and major version, or an empty string. |
-| `has-previous-version` | `true` when `previous-version` is present, otherwise `false`.                                  |
+| `previous-version`     | Latest existing matching CalVer tag for the resolved date, or an empty string. |
+| `has-previous-version` | `true` when `previous-version` is present for the resolved date, otherwise `false`. |
 
 ## Basic Usage
 
@@ -48,7 +48,7 @@ permissions:
   contents: read
 
 steps:
-  - uses: okaryo/calver@v1.0.0
+  - uses: okaryo/calver@v1
     id: calver
     with:
       prefix: v
@@ -61,7 +61,7 @@ steps:
 ## Timezone Example
 
 ```yaml
-- uses: okaryo/calver@v1.0.0
+- uses: okaryo/calver@v1
   id: calver
   with:
     timezone: Asia/Tokyo
@@ -72,7 +72,7 @@ The `timezone` input must be a valid IANA timezone name. The Action fails clearl
 ## Empty Prefix Example
 
 ```yaml
-- uses: okaryo/calver@v1.0.0
+- uses: okaryo/calver@v1
   id: calver
   with:
     prefix: ""
@@ -119,7 +119,13 @@ Without concurrency, two jobs may calculate the same next version before either 
 
 ## Tag Loading
 
-The Action loads tags through the GitHub API instead of local Git tags. Workflow checkouts often use shallow history, so relying on local tags can miss existing versions. GitHub API pagination is used so repositories with many tags are handled correctly.
+The Action loads tags through the GitHub API instead of local Git tags. Workflow checkouts often use shallow history, so relying on local tags can miss existing versions.
+
+To keep API requests small, the Action only loads tags that match the resolved date prefix:
+
+```text
+refs/tags/{prefix}{major-version}.{yyyyMMdd}.
+```
 
 Only exact tags matching the configured prefix and major version are considered:
 
@@ -127,4 +133,6 @@ Only exact tags matching the configured prefix and major version are considered:
 {prefix}{major-version}.{yyyyMMdd}.{sequence}
 ```
 
-Sorting uses numeric date and sequence values, not lexicographic string order.
+The `previous-version` output is scoped to the resolved date. Tags from previous dates are not loaded and are not considered for `previous-version`.
+
+Sorting uses numeric sequence values, not lexicographic string order.

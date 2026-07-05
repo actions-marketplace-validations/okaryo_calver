@@ -32,9 +32,9 @@ outputs:
   sequence:
     description: Daily release sequence number.
   previous-version:
-    description: Latest existing matching CalVer tag for the same prefix and major version.
+    description: Latest existing matching CalVer tag for the resolved date.
   has-previous-version:
-    description: Boolean-like string indicating whether a previous matching version exists.
+    description: Boolean-like string indicating whether a previous matching version exists for the resolved date.
 
 runs:
   using: node24
