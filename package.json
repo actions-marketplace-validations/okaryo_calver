@@ -1,14 +1,13 @@
 {
   "name": "calver",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "private": true,
   "description": "GitHub Action to calculate the next Calendar Versioning tag.",
   "license": "MIT",
   "type": "module",
   "packageManager": "pnpm@11.7.0",
   "scripts": {
-    "prebuild": "node -e \"require('node:fs').rmSync('dist', { recursive: true, force: true })\"",
-    "build": "tsc --noEmit && ncc build src/index.ts -o dist --license licenses.txt",
+    "build": "tsc -p tsconfig.build.json && ncc build lib/index.js -o dist --license licenses.txt",
     "check": "biome check --write .",
     "check:format": "biome format --write .",
     "check:ci": "biome ci .",
@@ -16,11 +15,11 @@
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.5.2",
-    "@types/node": "^20.19.9",
-    "@vercel/ncc": "^0.38.3",
-    "typescript": "^5.8.3",
-    "vitest": "^3.2.4"
+    "@biomejs/biome": "^2.5.4",
+    "@types/node": "^24.13.3",
+    "@vercel/ncc": "^0.44.1",
+    "typescript": "^7.0.2",
+    "vitest": "^4.1.10"
   },
   "dependencies": {
     "@actions/core": "^3.0.1",
